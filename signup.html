@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GlowForge Signup | Registration</title>
+    <!-- Import Poppins font for modern look -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <!-- Link to the separate CSS file -->
+    <link rel="stylesheet" href="signup.css" />
+  </head>
+  <body>
+    <div class="signup-container">
+      <!-- Left Section: Motivational Tagline/Info -->
+      <div class="info-section">
+        <h1>Join the Network</h1>
+        <p>
+          Access unlimited potential and collaborate on the next generation of
+          digital tools.
+        </p>
+
+        <ul class="feature-list">
+          <li><i class="fas fa-fingerprint"></i> Secure Data Encryption</li>
+          <li><i class="fas fa-bolt"></i> Blazing Fast Speeds</li>
+          <li><i class="fas fa-users"></i> Global Community Access</li>
+          <li><i class="fas fa-lock-open"></i> Instant Account Activation</li>
+        </ul>
+      </div>
+
+      <!-- Right Section: Signup Form -->
+      <div class="form-section">
+        <h2>Create Your Account</h2>
+        <form id="signupForm" action="./404.html">
+          <!-- Full Name Input -->
+          <div class="input-group">
+            <input
+              type="text"
+              id="fullname"
+              class="input-field"
+              placeholder="Full Name"
+              required
+            />
+            <i class="fas fa-user input-icon"></i>
+          </div>
+
+          <!-- Email Input -->
+          <div class="input-group">
+            <input
+              type="email"
+              id="email"
+              class="input-field"
+              placeholder="Email Address"
+              required
+            />
+            <i class="fas fa-envelope input-icon"></i>
+          </div>
+
+          <!-- Password Input -->
+          <div class="input-group">
+            <input
+              type="password"
+              id="password"
+              class="input-field"
+              placeholder="Password"
+              required
+            />
+            <i class="fas fa-lock input-icon"></i>
+          </div>
+
+          <!-- Confirm Password Input -->
+          <div class="input-group">
+            <input
+              type="password"
+              id="confirmPassword"
+              class="input-field"
+              placeholder="Confirm Password"
+              required
+            />
+            <i class="fas fa-lock input-icon"></i>
+          </div>
+
+          <!-- Glowing Sign Up Button -->
+          <button type="submit" class="signup-button">
+            <span
+              ><i class="fas fa-user-plus" style="margin-right: 10px"></i> SIGN
+              UP</span
+            >
+          </button>
+        </form>
+
+        <!-- Login Link -->
+        <p class="login-text">
+          Already have an account? <a href="./login.html">Log In</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Minimal JavaScript for form handling (optional) -->
+    <!-- <script>
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const password = document.getElementById("password").value;
+          const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+          if (password !== confirmPassword) {
+            // Use a visible message instead of alert()
+            const formSection = document.querySelector(".form-section");
+            let message = document.querySelector(".error-message");
+            if (!message) {
+              message = document.createElement("p");
+              message.className = "error-message";
+              message.style.color = "#ff5555";
+              message.style.marginTop = "15px";
+              formSection.insertBefore(
+                message,
+                formSection.querySelector(".signup-button").nextSibling
+              );
+            }
+            message.textContent = "Error: Passwords do not match!";
+            return;
+          } else {
+            let message = document.querySelector(".error-message");
+            if (message) message.remove();
+          }
+
+          // Mock success feedback
+          const buttonSpan = document.querySelector(".signup-button span");
+          buttonSpan.innerHTML =
+            '<i class="fas fa-check" style="margin-right: 10px;"></i> SUCCESS!';
+          setTimeout(() => {
+            buttonSpan.innerHTML =
+              '<i class="fas fa-user-plus" style="margin-right: 10px;"></i> SIGN UP';
+          }, 3000);
+
+          console.log("Signup successful:", {
+            name: document.getElementById("fullname").value,
+            email: document.getElementById("email").value,
+          });
+          this.reset();
+        });
+    </script> -->
+  </body>
+</html>

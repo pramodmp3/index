@@ -1,0 +1,225 @@
+/* ----- RESET & BASE ----- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+  background: radial-gradient(circle at top left, #001a00, #000);
+  overflow-x: hidden;
+}
+
+/* ----- CONTAINER ----- */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem 5%;
+  position: relative;
+  z-index: 2;
+}
+
+/* ----- WELCOME SECTION ----- */
+.welcome-section {
+  flex: 1;
+  max-width: 45%;
+  animation: slideInLeft 1s ease forwards;
+}
+
+.welcome-section h1 {
+  font-size: 2.3rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.welcome-section h1 span {
+  color: #00ff88;
+}
+
+.welcome-section ul {
+  list-style: none;
+  margin-top: 1.5rem;
+}
+
+.welcome-section li {
+  margin-bottom: 0.7rem;
+  padding-left: 1.2rem;
+  position: relative;
+  font-size: 1rem;
+}
+
+.welcome-section li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #00ff88;
+}
+
+.tip {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* ----- LOGIN CARD ----- */
+.login-card {
+  flex: 1;
+  max-width: 400px;
+  padding: 2.5rem;
+  border-radius: 16px;
+  backdrop-filter: blur(16px);
+  background: rgba(0, 40, 0, 0.4);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  box-shadow: 0 0 40px rgba(0, 255, 136, 0.15);
+  animation: fadeInUp 1s ease forwards;
+}
+
+.login-card h2 {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.login-card p {
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+/* ----- FORM ----- */
+.input-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+}
+
+input {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+input:focus {
+  border: 1px solid #00ff88;
+  box-shadow: 0 0 10px #00ff8855;
+}
+
+/* ----- PASSWORD TOGGLE ----- */
+.password-wrapper {
+  position: relative;
+}
+
+#togglePassword {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  background: transparent;
+  border: none;
+  color: #00ff88;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+/* ----- ACTIONS ----- */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.forgot {
+  font-size: 0.9rem;
+  color: #00ff88;
+  text-decoration: none;
+}
+
+.login-btn {
+  background: linear-gradient(135deg, #00ff88, #00b36b);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px #00ff8855;
+}
+
+.login-btn:hover {
+  box-shadow: 0 0 25px #00ff8888;
+  transform: translateY(-2px);
+}
+
+/* ----- SIGNUP ----- */
+.signup {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.signup a {
+  color: #00ff88;
+  text-decoration: none;
+}
+
+/* ----- BACKGROUND ANIMATION ----- */
+#bg-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* ----- ANIMATIONS ----- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ----- RESPONSIVE ----- */
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .welcome-section,
+  .login-card {
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GlowForge Login | Glassmorphism</title>
+    <!-- Import Poppins font for modern look -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* CSS Reset and Base Styles */
+      :root {
+        --dark-bg: #111827;
+        --glass-bg: rgba(255, 255, 255, 0.05);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --neon-green: #38f8ac;
+        --neon-shadow: 0 0 15px var(--neon-green), 0 0 30px var(--neon-green);
+        --shadow-light: rgba(0, 0, 0, 0.3);
+        --shadow-strong: rgba(0, 0, 0, 0.7);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        color: #e5e7eb;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, var(--dark-bg), #000000);
+        overflow: hidden;
+        position: relative;
+        /* Note: backgroundShift keyframes are not defined, but the animation rule itself is fine */
+        /* animation: backgroundShift 60s infinite alternate; */
+      }
+
+      /* Subtle Background Animation (Floating Lights) */
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 10% 20%,
+            rgba(56, 248, 172, 0.15) 0%,
+            transparent 20%
+          ),
+          radial-gradient(
+            circle at 80% 90%,
+            rgba(56, 248, 172, 0.15) 0%,
+            transparent 20%
+          );
+        animation: floatingLights 20s infinite alternate;
+        opacity: 0.5;
+        pointer-events: none;
+      }
+
+      @keyframes floatingLights {
+        0% {
+          transform: translate(0, 0) rotate(0deg);
+        }
+        100% {
+          transform: translate(100px, 50px) rotate(5deg);
+        }
+      }
+
+      /* Main Layout - Split Container */
+      .login-container {
+        display: flex;
+        width: 90%;
+        max-width: 1100px;
+        /* --- START FIX: Use max-height (vh) and lowered min-height for fluidity --- */
+        min-height: 600px;
+        max-height: 95vh; /* Ensures it never exceeds 95% of viewport height */
+        overflow-y: auto; /* Allows scrolling within the card if content is too tall */
+        /* --- END FIX --- */
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        overflow-x: hidden; /* Prevent horizontal scrollbar */
+        box-shadow: 0 20px 50px var(--shadow-strong);
+        /* Initial state for card animation */
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInSlide 1s forwards cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      @keyframes fadeInSlide {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Left Section - Welcome Text & Features */
+      .welcome-section {
+        flex: 1;
+        padding: 50px;
+        background: linear-gradient(
+          135deg,
+          rgba(56, 248, 172, 0.1),
+          rgba(10, 10, 10, 0.5)
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        backdrop-filter: blur(5px);
+        border-right: 1px solid var(--glass-border);
+      }
+
+      .welcome-section h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 20px;
+        text-shadow: 0 0 10px rgba(56, 248, 172, 0.5);
+      }
+
+      .feature-list {
+        list-style: none;
+        margin-top: 30px;
+      }
+
+      .feature-list li {
+        font-size: 1rem;
+        margin-bottom: 15px;
+        opacity: 0.8;
+        transition: color 0.3s ease;
+      }
+
+      .feature-list li:hover {
+        color: var(--neon-green);
+      }
+
+      .feature-list i {
+        color: var(--neon-green);
+        margin-right: 15px;
+        filter: drop-shadow(0 0 5px rgba(56, 248, 172, 0.7));
+      }
+
+      /* Right Section - Login Form */
+      .form-section {
+        flex: 1;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .form-section h2 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 30px;
+        color: var(--neon-green);
+        text-align: center;
+      }
+
+      .input-group {
+        position: relative;
+        margin-bottom: 25px;
+        transition: all 0.3s ease;
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 15px 15px 15px 50px; /* Space for icon */
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--glass-border);
+        border-radius: 10px;
+        color: #e5e7eb;
+        font-size: 1rem;
+        outline: none;
+        transition: all 0.3s ease;
+      }
+
+      /* Neon Glow Effect on Focus/Hover */
+      .input-field:focus,
+      .input-field:hover {
+        border-color: var(--neon-green);
+        box-shadow: 0 0 8px var(--neon-green);
+      }
+
+      .input-icon {
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        transform: translateY(-50%);
+        color: var(--neon-green);
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+      }
+
+      .input-field:focus + .input-icon {
+        opacity: 1;
+      }
+
+      /* Password Toggle Styling */
+      .password-toggle {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: var(--neon-green);
+        opacity: 0.8;
+        transition: opacity 0.3s ease, transform 0.2s ease;
+      }
+
+      .password-toggle:hover {
+        opacity: 1;
+        transform: translateY(-50%) scale(1.1);
+      }
+
+      /* Links and Utility */
+      .utility-links {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 35px;
+        font-size: 0.9rem;
+      }
+
+      .utility-links a {
+        color: #9ca3af;
+        text-decoration: none;
+        transition: color 0.3s ease, text-shadow 0.3s ease;
+      }
+
+      .utility-links a:hover {
+        color: var(--neon-green);
+        text-shadow: 0 0 5px rgba(56, 248, 172, 0.7);
+      }
+
+      /* Login Button - Glowing */
+      .login-button {
+        width: 100%;
+        padding: 15px;
+        background: var(--neon-green);
+        border: none;
+        border-radius: 10px;
+        color: var(--dark-bg);
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 0 15px rgba(56, 248, 172, 0.6);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .login-button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        transition: all 0.4s ease-in-out;
+        z-index: 0;
+      }
+
+      .login-button:hover {
+        background: #25d490;
+        box-shadow: 0 0 25px var(--neon-green), 0 0 50px var(--neon-green);
+      }
+
+      .login-button:hover::before {
+        left: 100%;
+      }
+
+      .login-button span {
+        position: relative;
+        z-index: 2;
+      }
+
+      /* Sign up link below the form */
+      .signup-text {
+        text-align: center;
+        margin-top: 25px;
+        font-size: 0.9rem;
+      }
+
+      .signup-text a {
+        color: var(--neon-green);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+
+      .signup-text a:hover {
+        text-decoration: underline;
+      }
+
+      /* ======================================= */
+      /* RESPONSIVENESS (Mobile/Tablet) */
+      /* ======================================= */
+
+      @media (max-width: 1024px) {
+        .login-container {
+          width: 95%;
+          min-height: auto;
+          max-height: none; /* Let content dictate height when stacked */
+          overflow-y: visible; /* Prevent unnecessary scrollbar on mobile */
+          flex-direction: column; /* Stack vertically */
+          margin: 40px 0;
+        }
+
+        .welcome-section {
+          padding: 40px;
+          text-align: center;
+          border-right: none;
+          border-bottom: 1px solid var(--glass-border);
+        }
+
+        .welcome-section h1 {
+          font-size: 2.2rem;
+          margin-bottom: 15px;
+        }
+
+        .feature-list {
+          margin-top: 20px;
+          text-align: left;
+          padding-left: 20px;
+        }
+
+        .form-section {
+          padding: 40px;
+        }
+
+        .form-section h2 {
+          margin-bottom: 20px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 20px;
+          align-items: flex-start; /* Start from top on small screens */
+        }
+
+        .login-container {
+          margin: 0;
+          border-radius: 10px;
+        }
+
+        .welcome-section {
+          padding: 30px;
+        }
+
+        .welcome-section h1 {
+          font-size: 1.8rem;
+        }
+
+        .feature-list {
+          display: none; /* Hide features on smallest screen for cleaner view */
+        }
+
+        .form-section {
+          padding: 30px;
+        }
+
+        .form-section h2 {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <!-- Left Section: Welcome Text and Features -->
+      <div class="welcome-section">
+        <h1>Welcome to STACKLY</h1>
+        <p>
+          Your gateway to the future. Access cutting-edge tools designed for
+          efficiency and collaboration.
+        </p>
+
+        <ul class="feature-list">
+          <li><i class="fas fa-microchip"></i> Real-Time Data Sync</li>
+          <li><i class="fas fa-shield-alt"></i> Advanced Security Protocol</li>
+          <li><i class="fas fa-cloud"></i> Decentralized Storage</li>
+          <li><i class="fas fa-rocket"></i> Optimized Performance</li>
+        </ul>
+      </div>
+
+      <!-- Right Section: Login Form -->
+      <div class="form-section">
+        <h2>Secure Login</h2>
+        <form id="loginForm" action="./404.html">
+          <!-- Email Input -->
+          <div class="input-group">
+            <input
+              type="email"
+              id="email"
+              class="input-field"
+              placeholder="Email Address"
+              required
+            />
+            <i class="fas fa-envelope input-icon"></i>
+          </div>
+
+          <!-- Password Input with Toggle -->
+          <div class="input-group">
+            <input
+              type="password"
+              id="password"
+              class="input-field"
+              placeholder="Password"
+              required
+            />
+            <i class="fas fa-lock input-icon"></i>
+            <i class="far fa-eye password-toggle" id="togglePassword"></i>
+          </div>
+
+          <!-- Utility Links -->
+          <div class="utility-links">
+            <a href="./404.html" class="forgot-password-link"
+              >Forgot Password?</a
+            >
+          </div>
+
+          <!-- Glowing Login Button -->
+          <button type="submit" class="login-button">
+            <span>LOG IN</span>
+          </button>
+        </form>
+
+        <!-- Create Account Link -->
+        <p class="signup-text">
+          Don't have an account? <a href="./signup.html">Create Account</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Minimal JavaScript for "Show Password" Toggle -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const togglePassword = document.getElementById("togglePassword");
+        const passwordInput = document.getElementById("password");
+
+        if (togglePassword && passwordInput) {
+          togglePassword.addEventListener("click", function () {
+            // Toggle the type attribute
+            const type =
+              passwordInput.getAttribute("type") === "password"
+                ? "text"
+                : "password";
+            passwordInput.setAttribute("type", type);
+
+            // Toggle the eye icon
+            this.classList.toggle("fa-eye");
+            this.classList.toggle("fa-eye-slash");
+          });
+        }
+
+        // Prevent default form submission for demonstration purposes
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,486 @@
+/* Root theme variables (provided) */
+:root {
+  --dark-bg: #111827;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --neon-green: #38f8ac;
+  --neon-shadow: 0 0 15px var(--neon-green), 0 0 30px var(--neon-green);
+  --shadow-strong: rgba(0, 0, 0, 0.7);
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+}
+
+/* Global reset */
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  background: var(--dark-bg);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  line-height: 1.5;
+}
+
+/* Background with animated gradient and particles */
+.background {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.background .gradient {
+  position: absolute;
+  inset: -20%;
+  /* Subtle animated radial gradient for a modern glow */
+  background: radial-gradient(
+      60vmax 60vmax at 20% 30%,
+      rgba(56, 248, 172, 0.1),
+      transparent 60%
+    ),
+    radial-gradient(
+      40vmax 40vmax at 80% 70%,
+      rgba(56, 248, 172, 0.06),
+      transparent 65%
+    );
+  filter: blur(20px);
+  animation: drift 18s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(2rem, -1rem, 0) scale(1.05);
+  }
+}
+
+/* Glowing particles using multiple box-shadows animated */
+.background .particles::before,
+.background .particles::after {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--neon-green);
+  box-shadow: 10vw 20vh 0 0 rgba(56, 248, 172, 0.25),
+    30vw 40vh 0 0 rgba(56, 248, 172, 0.15),
+    70vw 10vh 0 0 rgba(56, 248, 172, 0.2),
+    80vw 60vh 0 0 rgba(56, 248, 172, 0.18),
+    20vw 70vh 0 0 rgba(56, 248, 172, 0.12),
+    55vw 50vh 0 0 rgba(56, 248, 172, 0.16),
+    15vw 30vh 0 0 rgba(56, 248, 172, 0.22);
+  filter: blur(1px);
+}
+.background .particles::before {
+  animation: twinkle 6s ease-in-out infinite;
+}
+.background .particles::after {
+  animation: twinkle 10s ease-in-out infinite reverse;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+}
+
+/* Main centering */
+.contact-wrapper {
+  min-height: 100vh;
+  display: grid;
+  place-items: center; /* Perfect center both axes */
+  padding: 4vw 5vw;
+}
+
+/* Container with max width and entrance animation */
+.contact-container {
+  width: 100%;
+  max-width: 1100px;
+  animation: fadeUp 700ms ease-out both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header */
+.contact-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.contact-header h1 {
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--neon-green);
+  text-shadow: 0 0 10px rgba(56, 248, 172, 0.3);
+}
+.contact-header p {
+  color: var(--muted);
+}
+
+/* Responsive grid: form + map/info */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2rem;
+}
+@media (max-width: 900px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Glassmorphism card base */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px var(--shadow-strong);
+}
+
+/* Contact form styling */
+.contact-form {
+  composes: glass; /* for readability; not functional, we re-apply below */
+}
+.contact-form {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 10px 30px var(--shadow-strong);
+  animation: slideInLeft 800ms ease-out both;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.form-group {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.form-group label {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* Inputs + textarea + file */
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form input[type="tel"],
+.contact-form input[type="file"],
+.contact-form textarea {
+  width: 100%;
+  padding: 0.8rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  outline: none;
+  transition: border-color 200ms ease, box-shadow 200ms ease,
+    transform 200ms ease, background 200ms ease;
+  box-shadow: 0 0 0 0 rgba(56, 248, 172, 0);
+}
+
+/* Animated placeholder effect: subtle glow pulse while input is empty */
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #b8ffe4;
+  opacity: 0.6;
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+.contact-form input:focus::placeholder,
+.contact-form textarea:focus::placeholder {
+  opacity: 0.35;
+}
+
+/* Focus glow using neon shadow */
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form input:hover,
+.contact-form textarea:hover {
+  border-color: var(--neon-green);
+  box-shadow: var(--neon-shadow);
+  transform: translateY(-1px);
+}
+
+/* Hint under inputs */
+.input-hint {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* Error message hidden by default; animated when shown */
+.error-msg {
+  display: none;
+  font-size: 0.78rem;
+  color: #ff7676;
+  animation: shake 300ms ease-out;
+}
+@keyframes shake {
+  25% {
+    transform: translateX(-2px);
+  }
+  50% {
+    transform: translateX(2px);
+  }
+  75% {
+    transform: translateX(-1px);
+  }
+}
+
+/* File input visual tweaks */
+.file-group input[type="file"] {
+  cursor: pointer;
+}
+
+/* Neon submit button */
+.neon-btn {
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.95rem 1.1rem;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: linear-gradient(
+    180deg,
+    rgba(56, 248, 172, 0.18),
+    /* rgba(56, 248, 172, 0.1) */
+  );
+  color: #0b1e16;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 200ms ease, box-shadow 200ms ease, filter 300ms ease;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.neon-btn:hover,
+.neon-btn:focus {
+  box-shadow: var(--neon-shadow);
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+.neon-btn:active {
+  transform: translateY(0);
+}
+
+/* Pulsing glow on focusable elements */
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(56, 248, 172, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px 6px rgba(56, 248, 172, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(56, 248, 172, 0.3);
+  }
+}
+.contact-form input:focus,
+.contact-form textarea:focus,
+.neon-btn:focus {
+  animation: pulseGlow 1.6s ease-in-out infinite;
+}
+
+/* Map and info stack */
+.map-wrap {
+  display: grid;
+  gap: 1.5rem;
+  animation: slideInRight 800ms ease-out both;
+}
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.map-card,
+.info-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px var(--shadow-strong);
+  overflow: hidden;
+}
+
+.map-card iframe {
+  display: block;
+  width: 100%;
+  height: 320px;
+  border: 0;
+  /* Integrate subtle inner glow border */
+  box-shadow: inset 0 0 20px rgba(56, 248, 172, 0.18);
+}
+
+.info-card {
+  padding: 1rem;
+}
+.info-card h2 {
+  margin: 0 0 0.75rem;
+  color: var(--neon-green);
+  text-shadow: 0 0 10px rgba(56, 248, 172, 0.3);
+  font-weight: 700;
+}
+.info-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0.5rem;
+  display: grid;
+  gap: 0.5rem;
+}
+.info-list .label {
+  color: var(--muted);
+  margin-right: 0.25rem;
+}
+.info-list a {
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px dashed transparent;
+  transition: color 200ms ease, border-color 200ms ease, text-shadow 200ms ease;
+}
+.info-list a:hover {
+  color: var(--neon-green);
+  text-shadow: var(--neon-shadow);
+  border-color: var(--neon-green);
+}
+
+/* Social icons with neon hover */
+.socials {
+  display: flex;
+  gap: 0.75rem;
+}
+.social-link {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.03);
+  transition: transform 200ms ease, box-shadow 200ms ease,
+    border-color 200ms ease, filter 300ms ease;
+}
+.social-link svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--text);
+  transition: fill 200ms ease, filter 200ms ease;
+}
+.social-link:hover {
+  border-color: var(--neon-green);
+  box-shadow: var(--neon-shadow);
+  transform: translateY(-2px);
+}
+.social-link:hover svg {
+  fill: var(--neon-green);
+  filter: drop-shadow(0 0 6px rgba(56, 248, 172, 0.6));
+}
+
+/* Form status toast */
+.form-status {
+  position: fixed;
+  left: 50%;
+  bottom: 2rem;
+  transform: translateX(-50%) translateY(20px);
+  min-width: 220px;
+  max-width: 80vw;
+  text-align: center;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: rgba(20, 30, 40, 0.7);
+  color: var(--text);
+  box-shadow: 0 10px 30px var(--shadow-strong);
+  opacity: 0;
+  pointer-events: none;
+}
+.form-status.show {
+  animation: toastIn 300ms ease-out forwards;
+}
+.form-status.hide {
+  animation: toastOut 300ms ease-in forwards;
+}
+.form-status.success {
+  border-color: var(--neon-green);
+  box-shadow: var(--neon-shadow);
+}
+.form-status.error {
+  border-color: #ff7676;
+  box-shadow: 0 0 15px #ff7676, 0 0 30px #ff7676;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+@keyframes toastOut {
+  from {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(30px);
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 600px) {
+  .contact-header p {
+    font-size: 0.95rem;
+  }
+  .map-card iframe {
+    height: 240px;
+  }
+  .neon-btn {
+    padding: 1.05rem;
+    font-size: 1rem;
+  }
+  .form-group input,
+  .form-group textarea {
+    padding: 0.9rem 1rem; /* touch-friendly */
+  }
+}
